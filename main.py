@@ -2,8 +2,8 @@ from lexer import Lexer
 from parser import Parser
 
 text_input = """
-a = 7
-print(a)
+a = 5
+print(3==5)
 """
 
 lexer = Lexer().get_lexer()
