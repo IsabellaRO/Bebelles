@@ -1,0 +1,34 @@
+SubDec = "Void", identifier, "(" ("" | Type, identifier, { ",", Type, identifier}), ")", "\n", {Statement, "\n"}, "End, "Void"
+
+FuncDec = "Def", identifier, "(" ("" | Type, identifier, { ",", Type, identifier}), ")", "as", Type, "\n", {Statement, "\n"}, "End, "Def"
+
+Statement = "" |
+ (identifier, "=", relexpression) |
+ ("PRINT", "(", relexpression, ")") |
+ (Type, identifier) |
+ ("While", "(", relexpression, ")", ":", "\n" {statement, "\n"}, "Wend") |
+ ("If", "(", relexpression, ")", ":", "\n", {statement, "\n"}, {"Else", "\n", {statement, "\n"}}, "End", "If") |
+ ("call", identifier, ("(", (Relexpression, {",", Relexpression}) | "", ")") | "");
+
+Relexpression = expression, {("="|">"|"<"), expression};
+
+Expression = term, {("+"|"-"|"or"), term};
+
+Term = factor, {("*"|"/"|"and"), factor};
+
+Factor = number |
+("True"|"False) |
+(identifier, "" | ("(", (Relexpression, {",", Relexpression}) | "", ")") ) |
+("(", relexpression, ")") |
+(("+"|"-"|"not"), factor) |
+"Input";
+
+Type = "Integer"|
+"Boolean";
+
+// Para fazer a implementação da linguagem utilizei os tutoriais abaixo:
+// https://gnuu.org/2009/09/18/writing-your-own-toy-compiler/
+// https://aquamentus.com/flex_bison.html
+// https://raywang.tech/2017/03/07/Flex-and-Bison-for-a-simple-language-MITScript/
+// Flex -> Léxico, Bison -> Parser
+// Obtive ajuda do aluno Hugo Mendes, principalmente para criar a main do parser.

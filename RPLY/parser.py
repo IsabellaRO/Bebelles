@@ -10,11 +10,13 @@ class Parser():
         )
 
     def parse(self):
+        @self.pg.production('program : expression')
+        def program(p):
+            return 
         @self.pg.production('program : expression PRINT OPENPAR expression CLOSEPAR')
         def program(p):
             return Print(p[3])
         @self.pg.production('program : PRINT OPENPAR expression CLOSEPAR')
-        #@self.pg.production('program : expression')
         def program(p):
             return Print(p[2])
 
